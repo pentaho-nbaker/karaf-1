@@ -20,25 +20,25 @@
 <blueprint
         xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
         xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0"
+        xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="
         http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
-        http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/schemas/blueprint-ext/blueprint-ext.xsd">
+        http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.0.0 http://aries.apache.org/schemas/blueprint-ext/blueprint-ext.xsd
+        ">
 
     <ext:property-placeholder placeholder-prefix="$(" placeholder-suffix=")"/>
-
-    <ext:property-placeholder placeholder-prefix="$[" placeholder-suffix="]" ignore-missing-locations="true">
-        <ext:default-properties>
-            <ext:property name="featuresRepositories" value=""/>
-            <ext:property name="featuresBoot" value=""/>
-            <ext:property name="resolverTimeout" value="5000"/>
-            <ext:property name="respectStartLvlDuringFeatureStartup" value="true"/>
-            <ext:property name="respectStartLvlDuringFeatureUninstall" value="true"/>
-            <ext:property name="featuresBootAsynchronous" value="false"/>
-            <ext:property name="overrides" value="file:$(karaf.etc)/overrides.properties"/>
-        </ext:default-properties>
-        <ext:location>file:$(karaf.etc)/org.apache.karaf.features.cfg</ext:location>
-    </ext:property-placeholder>
+    <cm:property-placeholder persistent-id="org.apache.karaf.features" placeholder-prefix="$[" placeholder-suffix="]">
+        <cm:default-properties>
+            <cm:property name="featuresRepositories" value=""/>
+            <cm:property name="featuresBoot" value=""/>
+            <cm:property name="resolverTimeout" value="5000"/>
+            <cm:property name="respectStartLvlDuringFeatureStartup" value="true"/>
+            <cm:property name="respectStartLvlDuringFeatureUninstall" value="true"/>
+            <cm:property name="featuresBootAsynchronous" value="false"/>
+            <cm:property name="overrides" value="file:$(karaf.etc)/overrides.properties"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
 
     <reference-list id="featuresListeners" interface="org.apache.karaf.features.FeaturesListener"
                     availability="optional">
